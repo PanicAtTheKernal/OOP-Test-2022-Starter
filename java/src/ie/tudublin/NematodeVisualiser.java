@@ -127,11 +127,65 @@ public class NematodeVisualiser extends PApplet
 		}
 	}
 
+	public void drawNematode(Nematode nematode)
+	{
+		float nematodeDrawingSpace = bodySize * (nematode.getLength() + 2);
+		float top = (height - nematodeDrawingSpace)/2;
+		float bottom = height - top;
+		float center = height/2;
+		// The top add the space for the top and bottom
+		float length = nematode.getLength() + 2; 
+
+		if (length <= 3)
+		{
+			pushMatrix();
+
+			drawEyes(nematode.getEyes(), nematode.getLimbs());
+			drawBottom(nematode.getGender(), nematode.getLimbs());
+			popMatrix();
+		}
+		else if (length == 4){
+			pushMatrix();
+			translate(width/2, top+bodySize+bodySize/2);
+			drawEyes(nematode.getEyes(), nematode.getLimbs());
+			popMatrix();
+			pushMatrix();
+			translate(width/2, top+(bodySize*2)+(bodySize/2));
+			drawBottom(nematode.getGender(), nematode.getLimbs());
+			popMatrix();
+		}
+		else {
+			// Draw head
+			pushMatrix();
+			translate(width/2, top+(bodySize*2)+(bodySize/2));
+			drawEyes(nematode.getEyes(), nematode.getLimbs());
+			popMatrix();
+
+			// Draw body
+			for(int i = 3; i < length-1; i++)
+			{
+				pushMatrix();
+				translate(width/2, top+(bodySize*i)+(bodySize/2));
+				drawBody(nematode.getLimbs());
+				popMatrix();
+			}
+
+			// Draw bottom
+			pushMatrix();
+			translate(width/2, top+(bodySize*(length-1))+(bodySize/2));
+			drawBottom(nematode.getGender(), nematode.getLimbs());
+			popMatrix();
+		}
+
+	}
+
 	public void draw()
 	{	
-		translate(400, 400);
+		// translate(400, 400);
+		Nematode jun = nematodes.get(0);
+		drawNematode(jun);
 		// drawBody(0);
 		// drawBottom("n", 0);
-		drawEyes(0, 1);
+		// drawEyes(0, 1);
 	}
 }
