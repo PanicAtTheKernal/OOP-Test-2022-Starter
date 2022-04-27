@@ -16,11 +16,20 @@ public class NematodeVisualiser extends PApplet
 	int limbsSize = 35;
 	int nematodeColor = 255;
 	int nematodeWeigth = 3;
+	int currentIndex = 0;
+
 
 	public void keyPressed()
 	{		
 		if (keyCode == LEFT)
 		{
+			if(currentIndex < nematodes.size()-1)
+			{
+				currentIndex++;
+			}
+			else {
+				currentIndex = 0;
+			}
 		}		
 	}
 
@@ -181,11 +190,8 @@ public class NematodeVisualiser extends PApplet
 
 	public void draw()
 	{	
-		// translate(400, 400);
-		Nematode jun = nematodes.get(0);
-		drawNematode(jun);
-		// drawBody(0);
-		// drawBottom("n", 0);
-		// drawEyes(0, 1);
+		Nematode currnetNematode = nematodes.get(currentIndex);
+		background(0);
+		drawNematode(currnetNematode);
 	}
 }
