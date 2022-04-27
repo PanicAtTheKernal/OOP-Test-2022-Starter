@@ -145,21 +145,26 @@ public class NematodeVisualiser extends PApplet
 		// The top add the space for the top and bottom
 		float length = nematode.getLength() + 2; 
 
+		textAlign(CENTER, TOP);
+		text(nematode.getName(), width/2, top);
+		textSize(32);
+		// For the nematode that are length of 1
 		if (length <= 3)
 		{
 			pushMatrix();
-
+			translate(width/2, top+(bodySize*2)+(bodySize/2));
 			drawEyes(nematode.getEyes(), nematode.getLimbs());
 			drawBottom(nematode.getGender(), nematode.getLimbs());
 			popMatrix();
 		}
+		// For the nematode that are are lenght of 2
 		else if (length == 4){
 			pushMatrix();
-			translate(width/2, top+bodySize+bodySize/2);
+			translate(width/2, top+(bodySize*2)+(bodySize/2));
 			drawEyes(nematode.getEyes(), nematode.getLimbs());
 			popMatrix();
 			pushMatrix();
-			translate(width/2, top+(bodySize*2)+(bodySize/2));
+			translate(width/2, top+(bodySize*3)+(bodySize/2));
 			drawBottom(nematode.getGender(), nematode.getLimbs());
 			popMatrix();
 		}
