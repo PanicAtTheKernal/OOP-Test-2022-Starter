@@ -14,7 +14,9 @@ public class NematodeVisualiser extends PApplet
 	int femalePartSize = 30;
 	int malePartSize = 15;
 	int limbsSize = 35;
-	int nematodeColor = 255;
+	int nematoadSaturation = 200;
+	int nematoadColour = 255;
+	int nematoadColour2 = 255;
 	int nematodeWeigth = 3;
 	int currentIndex = 0;
 
@@ -30,7 +32,19 @@ public class NematodeVisualiser extends PApplet
 			else {
 				currentIndex = 0;
 			}
-		}		
+		}
+		if (keyCode == RIGHT)
+		{
+			if(currentIndex > 0)
+			{
+				currentIndex--;
+			}
+			else {
+				currentIndex = nematodes.size()-1;
+			}
+		}	
+		nematoadSaturation = (int)random(0, 255);	
+
 	}
 
 
@@ -121,7 +135,7 @@ public class NematodeVisualiser extends PApplet
 
 	public void drawBody(int limbsPresent) {
 		ellipseMode(CENTER);
-		stroke(nematodeColor);
+		stroke(nematoadSaturation, nematoadColour, nematoadColour2);
 		strokeWeight(nematodeWeigth);
 		noFill();
 		ellipse(0, 0, bodySize, bodySize);
@@ -145,29 +159,37 @@ public class NematodeVisualiser extends PApplet
 		// The top add the space for the top and bottom
 		float length = nematode.getLength() + 2; 
 
+		// This draws the name of the nematoad
+		fill(nematoadSaturation, nematoadColour, nematoadColour2);
 		textAlign(CENTER, TOP);
 		text(nematode.getName(), width/2, top);
 		textSize(32);
-		// For the nematode that are length of 1
+
+		// For the nematodes that are of length of 1
 		if (length <= 3)
 		{
+			// Draw both head and bottom
 			pushMatrix();
 			translate(width/2, top+(bodySize*2)+(bodySize/2));
 			drawEyes(nematode.getEyes(), nematode.getLimbs());
 			drawBottom(nematode.getGender(), nematode.getLimbs());
 			popMatrix();
 		}
-		// For the nematode that are are lenght of 2
+		// For the nematodes that are are of length of 2
 		else if (length == 4){
+			// Draw head
 			pushMatrix();
 			translate(width/2, top+(bodySize*2)+(bodySize/2));
 			drawEyes(nematode.getEyes(), nematode.getLimbs());
 			popMatrix();
+
+			// Draw bottom
 			pushMatrix();
 			translate(width/2, top+(bodySize*3)+(bodySize/2));
 			drawBottom(nematode.getGender(), nematode.getLimbs());
 			popMatrix();
 		}
+		// For the other nematoads of various lengths
 		else {
 			// Draw head
 			pushMatrix();
@@ -198,5 +220,13 @@ public class NematodeVisualiser extends PApplet
 		Nematode currnetNematode = nematodes.get(currentIndex);
 		background(0);
 		drawNematode(currnetNematode);
+
+		line(40, height/2, 200, height/2);
+		line(40, height/2, 80, height/2-40);
+		line(40, height/2, 80, height/2+40);
+
+		line(width-40, height/2, width-200, height/2);
+		line(width-40, height/2, width-80, height/2-40);
+		line(width-40, height/2, width-80, height/2+40);
 	}
 }
